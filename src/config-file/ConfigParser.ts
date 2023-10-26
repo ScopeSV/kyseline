@@ -13,7 +13,7 @@ export class ConfigParser {
     }
 
     #readConfigFile = () => {
-        const configPath = path.resolve(process.cwd() + '/.kyselycli.json')
+        const configPath = path.resolve(process.cwd() + '/.kyselinecfg.json')
 
         if (!fs.existsSync(configPath)) {
             console.error("Couldn't find .kyselycli.json file")
