@@ -20,7 +20,7 @@ jobs:
     npm_publish:
         name: Publish to npm
         runs-on: ubuntu-latest
-        needs: [previous_job_name_if_any]
+        needs: [release-please]
         steps:
             - name: Checkout repository
               uses: actions/checkout@v2
