@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/ScopeSV/kycli/compare/v1.1.1...v1.1.2) (2023-10-26)
+
+
+### Bug Fixes
+
+* rename package ([be30f34](https://github.com/ScopeSV/kycli/commit/be30f34e19488697c93fdea2323790f226f6281b))
+* typo in package name ([8003678](https://github.com/ScopeSV/kycli/commit/80036782f0c2e96d41652e97a066a295249aa4e5))
+
 ## [1.1.1](https://github.com/ScopeSV/kycli/compare/v1.1.0...v1.1.1) (2023-10-26)
 
 
