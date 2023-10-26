@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/ScopeSV/kycli/compare/v1.1.0...v1.1.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* proper build run ([80ec25b](https://github.com/ScopeSV/kycli/commit/80ec25b6f0043c034efd817662c54f092c783506))
+
 ## [1.1.0](https://github.com/ScopeSV/kycli/compare/v1.0.0...v1.1.0) (2023-10-26)
 
 
