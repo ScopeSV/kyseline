@@ -4,7 +4,7 @@ import createMigrationHandler from './handlers/migrationHandler'
 
 const program = new Command()
 
-program.name('kysely-cli').description('Cli tool for kysely').version('0.0.1')
+program.name('kyseline').description('Cli tool for kysely').version('0.0.1')
 
 program
     .command('migration')
@@ -13,13 +13,13 @@ program
         console.log(`
     MAKE:
     To create a new table:
-    $ kycli migration:make create_foo_table foo:string bar:integer
+    $ kyseline migration:make create_foo_table foo:string bar:integer
 
     To add fields to an existing table:
-    $ kycli migration:make add_foo_from_foo_table foo:string bar:integer
+    $ kyseline migration:make add_foo_from_foo_table foo:string bar:integer
 
     To remove fields from an existing table:
-    $ kycli migration:make remove_foo_from_footable foo
+    $ kyseline migration:make remove_foo_from_footable foo
         `)
     })
     .action((cmdObj) => {
