@@ -1,4 +1,4 @@
-import FileWriter from '../FileWriter'
+import FileWriter from '../file-writer/FileWriter'
 import { ConfigParser } from '../config-file/ConfigParser'
 import TemplateBuilder from '../template/TemplateBuilder'
 

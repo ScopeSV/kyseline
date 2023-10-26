@@ -1,8 +1,9 @@
 import path from 'path'
-import fs from 'fs'
+import { existsSync, readFileSync } from 'fs'
 
 export type Config = {
     migrationDir: string
+    useJsExtension?: boolean
 }
 
 export class ConfigParser {
@@ -15,15 +16,15 @@ export class ConfigParser {
     #readConfigFile = () => {
         const configPath = path.resolve(process.cwd() + '/.kyselinecfg.json')
 
-        if (!fs.existsSync(configPath)) {
+        if (!existsSync(configPath)) {
             console.error("Couldn't find .kyselycli.json file")
             process.exit(1)
         }
 
         try {
-            return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+            return JSON.parse(readFileSync(configPath, 'utf-8'))
         } catch (err) {
-            console.error('Error parsing .kyselycli.json file')
+            console.error('Error parsing .kyselinecfg.json file')
             process.exit(1)
         }
     }

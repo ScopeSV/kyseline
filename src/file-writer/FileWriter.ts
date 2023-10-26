@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { ConfigParser } from './config-file/ConfigParser'
+import { ConfigParser } from '../config-file/ConfigParser'
 
 class FileWriter {
     constructor(
@@ -21,12 +21,27 @@ class FileWriter {
 
         return parseInt(`${year}${month}${day}${hour}${minute}${second}`)
     }
+
+    #hasTsConfigInCurrentDir = () => {
+        const tsConfigPath = path.resolve(process.cwd() + '/tsconfig.json')
+        return fs.existsSync(tsConfigPath)
+    }
+
+    determineFileExtension = () => {
+        const cfg = this.configParser.getConfig()
+        if (this.#hasTsConfigInCurrentDir() && cfg.useJsExtension !== true) {
+            return 'ts'
+        }
+        return 'js'
+    }
+
     createMigrationFile() {
         const dir = this.configParser.getMigrationDir()
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true })
         }
-        const filename = `${this.getCurrTimeStamp()}_${this.command}.ts`
+        const fileExt = this.determineFileExtension()
+        const filename = `${this.getCurrTimeStamp()}_${this.command}.${fileExt}`
         const filePath = path.join(dir, filename)
 
         fs.writeFile(filePath, this.template, (err: any) => {
