@@ -17,7 +17,6 @@ jobs:
               with:
                   release-type: node
                   package-name: kycli
-
     npm_publish:
         name: Publish to npm
         runs-on: ubuntu-latest
