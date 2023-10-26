@@ -46,20 +46,18 @@ class TemplateBuilder {
         return this
     }
 
-    handleOpts(line: string, opts: string[]) {
+    handleOpts(opts: string[]) {
         for (const opt of opts) {
             if (opt === 'not_null') {
-                line += `, (col) => col.notNull()`
+                return `, (col) => col.notNull()`
             }
         }
-
-        return line
     }
 
     addColumn(columnName: string, type: string, opts?: string[]) {
         let line = `.addColumn('${columnName}', '${type}'`
         if (opts && opts.length > 0) {
-            line += this.handleOpts(line, opts)
+            line += this.handleOpts(opts)
         }
         line += ')'
         this.template += line + '\n'
