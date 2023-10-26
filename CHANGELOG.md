@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/ScopeSV/kyseline/compare/v1.2.0...v1.2.1) (2023-10-26)
+
+
+### Bug Fixes
+
+* determine which filetype to use ([5e1e1fc](https://github.com/ScopeSV/kyseline/commit/5e1e1fcd8e965d50ac0b1bdc4d168c3b18657216))
+
 ## [1.2.0](https://github.com/ScopeSV/kyseline/compare/v1.1.2...v1.2.0) (2023-10-26)
 
 
