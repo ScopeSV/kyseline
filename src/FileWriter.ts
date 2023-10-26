@@ -1,9 +1,12 @@
 import fs from 'fs'
 import path from 'path'
+import { ConfigParser } from './config-file/ConfigParser'
+
 class FileWriter {
     constructor(
         public command: string,
-        public template: string
+        public template: string,
+        public configParser: ConfigParser
     ) {}
 
     getCurrTimeStamp = () => {
@@ -19,12 +22,13 @@ class FileWriter {
         return parseInt(`${year}${month}${day}${hour}${minute}${second}`)
     }
     createMigrationFile() {
-        const dir = '../migrations'
-        if (!fs.existsSync(path.join(__dirname, dir))) {
-            fs.mkdirSync(dir)
+        const dir = this.configParser.getMigrationDir()
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true })
         }
         const filename = `${this.getCurrTimeStamp()}_${this.command}.ts`
-        const filePath = path.join(__dirname, dir, filename)
+        const filePath = path.join(dir, filename)
+
         fs.writeFile(filePath, this.template, (err: any) => {
             if (err) {
                 console.error(err)

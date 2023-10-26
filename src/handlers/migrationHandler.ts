@@ -1,4 +1,5 @@
 import FileWriter from '../FileWriter'
+import { ConfigParser } from '../config-file/ConfigParser'
 import TemplateBuilder from '../template/TemplateBuilder'
 
 export enum Commands {
@@ -93,8 +94,13 @@ export const generateTemplate = (
 }
 
 const createMigrationHandler = (command: string, options: string[]): void => {
+    const configParser = new ConfigParser()
     const templateBuilder = generateTemplate(command, options)
-    const fileWriter = new FileWriter(command, templateBuilder.getTemplate())
+    const fileWriter = new FileWriter(
+        command,
+        templateBuilder.getTemplate(),
+        configParser
+    )
     fileWriter.createMigrationFile()
 }
 
