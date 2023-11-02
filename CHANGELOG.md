@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.2](https://github.com/ScopeSV/kyseline/compare/v0.0.1...v0.0.2) (2023-11-02)
+
+
+### Bug Fixes
+
+* release ([b46d164](https://github.com/ScopeSV/kyseline/commit/b46d164c17886ed5024760703225b7e79814720a))
+
 ## [0.0.1](https://github.com/ScopeSV/kyseline/compare/v1.3.0...v0.0.1) (2023-10-26)
 
 
