@@ -12,7 +12,7 @@ const parseInput = (input: string) => {
     const inputParts = input.split('_')
     const type = inputParts[0]
     let tableName
-    if (type == Commands.CreateTable) {
+    if (type === Commands.CreateTable) {
         tableName = inputParts[1]
     } else {
         tableName = inputParts[inputParts.length - 1]
@@ -86,6 +86,10 @@ export const generateTemplate = (
                     b.indent(2).dropColumn(columnName)
                 }
             )
+            break
+
+        default:
+            b.addEnd()
             break
     }
 

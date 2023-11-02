@@ -75,5 +75,11 @@ describe('migrationHandler', () => {
                 "await db.schema\n\t\t.alterTable('todo')\n\t\t.addColumn('complete', 'boolean', (col) => col.notNull())\n\t\t.execute()"
             )
         })
+        it('adds an end if cant find the action', () => {
+            const template = generateTemplate('do_stuff', []).getTemplate()
+            expect(template).toContain(
+                "import { Migration } from 'kysely'\n\nexport const up: Migration['up'] = async (db) => {\n}\n\nexport const down: Migration['down'] = async (db) => {\n}\n\n"
+            )
+        })
     })
 })
