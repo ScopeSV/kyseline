@@ -7,7 +7,7 @@ This tool can help you create
 
 ## Quick start
 
-in the root of your project, add a config file `kyselinecfg.json`
+in the root of your project, add a config file `.kyselinecfg.json`
 
 #### Config
 
