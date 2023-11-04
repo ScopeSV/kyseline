@@ -18,6 +18,7 @@ class TemplateBuilder {
 
     addEnd() {
         this.template += '}\n\n'
+        return this
     }
 
     addHeader() {
@@ -69,8 +70,14 @@ class TemplateBuilder {
         return this
     }
 
+    dropTable(tableName: string) {
+        this.template += `.dropTable('${tableName}')\n`
+        return this
+    }
+
     do() {
         this.template += '.execute()\n'
+        return this
     }
 
     getTemplate() {

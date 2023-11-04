@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { ConfigParser } from '../config-file/ConfigParser'
+import ts from 'typescript'
 
 class FileWriter {
     constructor(
@@ -27,6 +28,18 @@ class FileWriter {
         return fs.existsSync(tsConfigPath)
     }
 
+    #transpileToJs = () => {
+        const defaultOptions = {
+            module: ts.ModuleKind.ESNext,
+            target: ts.ScriptTarget.ESNext,
+            jsx: ts.JsxEmit.Preserve,
+        }
+
+        this.template = ts.transpileModule(this.template, {
+            compilerOptions: defaultOptions,
+        }).outputText
+    }
+
     determineFileExtension = () => {
         const cfg = this.configParser.getConfig()
         if (this.#hasTsConfigInCurrentDir() && cfg.useJsExtension !== true) {
@@ -43,6 +56,10 @@ class FileWriter {
         const fileExt = this.determineFileExtension()
         const filename = `${this.getCurrTimeStamp()}_${this.command}.${fileExt}`
         const filePath = path.join(dir, filename)
+
+        if (fileExt === 'js') {
+            this.#transpileToJs()
+        }
 
         fs.writeFile(filePath, this.template, (err: any) => {
             if (err) {
