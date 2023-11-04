@@ -94,7 +94,6 @@ export const generateTemplate = (
 
     b.addHeader().addUp()
 
-    console.log('type: ', type)
     switch (type) {
         case Commands.AddFields:
             buildTableAction(
