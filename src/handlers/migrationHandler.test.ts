@@ -27,6 +27,9 @@ describe('migrationHandler', () => {
             expect(template).toContain(
                 "await db.schema\n\t\t.createTable('todo')\n\t\t.execute()"
             )
+            expect(template).toContain(
+                "await db.schema\n\t\t.dropTable('todo')\n\t\t.execute()"
+            )
         })
         it('creates a table with columns', () => {
             const template = generateTemplate('create_todo', [
@@ -35,6 +38,9 @@ describe('migrationHandler', () => {
             ]).getTemplate()
             expect(template).toContain(
                 "await db.schema\n\t\t.createTable('todo')\n\t\t.addColumn('id', 'uuid')\n\t\t.addColumn('name', 'string')\n\t\t.execute()"
+            )
+            expect(template).toContain(
+                "await db.schema\n\t\t.dropTable('todo')\n\t\t.execute()"
             )
         })
         it('creates a table with multiple columns', () => {
@@ -46,6 +52,9 @@ describe('migrationHandler', () => {
             expect(template).toContain(
                 "await db.schema\n\t\t.createTable('todo')\n\t\t.addColumn('id', 'uuid')\n\t\t.addColumn('name', 'string')\n\t\t.addColumn('complete', 'boolean')\n\t\t.execute()"
             )
+            expect(template).toContain(
+                "await db.schema\n\t\t.dropTable('todo')\n\t\t.execute()"
+            )
         })
     })
     describe('AddFields', () => {
@@ -56,6 +65,9 @@ describe('migrationHandler', () => {
             expect(template).toContain(
                 "await db.schema\n\t\t.alterTable('todo')\n\t\t.addColumn('complete', 'boolean')\n\t\t.execute()"
             )
+            expect(template).toContain(
+                "await db.schema\n\t\t.alterTable('todo')\n\t\t.dropColumn('complete')\n\t\t.execute()"
+            )
         })
         it('adds multiple columns', () => {
             const template = generateTemplate('add_complete_to_todo', [
@@ -65,6 +77,9 @@ describe('migrationHandler', () => {
             expect(template).toContain(
                 "await db.schema\n\t\t.alterTable('todo')\n\t\t.addColumn('complete', 'boolean')\n\t\t.addColumn('name', 'string')\n\t\t.execute()"
             )
+            expect(template).toContain(
+                "await db.schema\n\t\t.alterTable('todo')\n\t\t.dropColumn('name')\n\t\t.dropColumn('complete')\n\t\t.execute()"
+            )
         })
         it('adds a column with not null', () => {
             const template = generateTemplate('add_complete_to_todo', [
@@ -73,6 +88,9 @@ describe('migrationHandler', () => {
 
             expect(template).toContain(
                 "await db.schema\n\t\t.alterTable('todo')\n\t\t.addColumn('complete', 'boolean', (col) => col.notNull())\n\t\t.execute()"
+            )
+            expect(template).toContain(
+                "await db.schema\n\t\t.alterTable('todo')\n\t\t.dropColumn('complete')\n\t\t.execute()"
             )
         })
         it('adds an end if cant find the action', () => {
