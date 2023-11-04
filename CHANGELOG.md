@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.0](https://github.com/ScopeSV/kyseline/compare/v0.0.2...v0.1.0) (2023-11-04)
+
+
+### Features
+
+* down functions and transpile to js ([42a2aab](https://github.com/ScopeSV/kyseline/commit/42a2aab773c17cb8311bd40c894279620ba69cba))
+
 ## [0.0.2](https://github.com/ScopeSV/kyseline/compare/v0.0.1...v0.0.2) (2023-11-02)
 
 
