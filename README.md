@@ -3,7 +3,9 @@
 ---
 
 Cli tool for [Kysely](https://github.com/kysely-org/kysely) Query builder.
-This tool can help you create
+This tool can help you create migration files for kysely.
+
+More functionality, like cli migrations, will be added at a later stage.
 
 ## Quick start
 
