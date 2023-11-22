@@ -1,0 +1,8 @@
+services:
+    db:
+        image: postgres:15.4-alpine
+        environment:
+            - POSTGRES_PASSWORD=user
+            - POSTGRES_DB=db
+        ports:
+            - 8893:5432

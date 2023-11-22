@@ -1,9 +1,19 @@
 import path from 'path'
 import { existsSync, readFileSync } from 'fs'
 
+export type PoolConfig = {
+    host: string
+    port: number
+    user: string
+    password: string
+    database: string
+    ssl: boolean
+}
+
 export type Config = {
     migrationDir: string
     useJsExtension?: boolean
+    dbCreds?: PoolConfig
 }
 
 export class ConfigParser {
