@@ -5,16 +5,24 @@ import {
     PostgresDialect,
     Migrator as KyselyMigrator,
     FileMigrationProvider,
+    MigrationResult,
 } from 'kysely'
 import { Pool } from 'pg'
 import { promises as fs } from 'fs'
 import * as fileSys from 'fs'
 import * as path from 'path'
 
-export class Migrator {
-    constructor(public cfg: Config) {}
+export type Direction = 'up' | 'down'
 
+export class Migrator {
     #tempFileDir = 'tempMigrations'
+    #db: Kysely<any>
+    #migrator: KyselyMigrator
+
+    constructor(public cfg: Config) {
+        this.#db = this.#createDbConnector()
+        this.#migrator = this.#createDbMigrator()
+    }
 
     #createDbConnector = () => {
         return new Kysely<any>({
@@ -24,9 +32,9 @@ export class Migrator {
         })
     }
 
-    #createDbMigrator = (db: Kysely<any>) => {
+    #createDbMigrator = () => {
         return new KyselyMigrator({
-            db,
+            db: this.#db,
             provider: new FileMigrationProvider({
                 fs,
                 path,
@@ -80,35 +88,69 @@ export class Migrator {
         }
     }
 
+    printResults = (d: Direction, results?: MigrationResult[]) => {
+        if (!results) return
+
+        if (results.length === 0) {
+            d === 'up'
+                ? console.log('Already up to date')
+                : console.log('No migrations to roll back')
+            return
+        }
+
+        results.forEach((result) => {
+            if (result.status === 'Success') {
+                const msg = d === 'up' ? 'Migrated' : 'Rolled back'
+                console.log(`${msg} ${result.migrationName}`)
+            } else if (result.status === 'Error') {
+                const msg =
+                    d === 'up' ? 'Failed to migrate' : 'Failed to roll back'
+                console.log(`${msg} ${result.migrationName}`)
+            }
+        })
+    }
+
     migrateUp = async () => {
-        this.#transpileMigrationFiles()
+        const { error, results } = await this.#migrator.migrateToLatest()
 
+        this.printResults('up', results)
+
+        if (error) {
+            console.error('Failed to migrate files')
+            console.error(error)
+            return
+        }
+
+        await this.#db.destroy()
+    }
+
+    migrateDown = async () => {
+        const { error, results } = await this.#migrator.migrateDown()
+
+        this.printResults('down', results)
+
+        if (error) {
+            console.error('Failed to roll back')
+            console.error(error)
+            return
+        }
+
+        await this.#db.destroy()
+    }
+
+    migrate = async (d: Direction) => {
         try {
-            const db = this.#createDbConnector()
-            const migrator = this.#createDbMigrator(db)
-            const { error, results } = await migrator.migrateToLatest()
-
-            results?.forEach((result) => {
-                if (result.status === 'Success') {
-                    console.log(`Migrated ${result.migrationName}`)
-                } else if (result.status === 'Error') {
-                    console.log(`Failed to migrate ${result.migrationName}`)
-                }
-            })
-
-            if (error) {
-                console.error('Failed to migrate files')
-                console.error(error)
-                process.exit(1)
+            this.#transpileMigrationFiles()
+            if (d === 'up') {
+                await this.migrateUp()
             }
 
-            if (results?.length === 0) {
-                console.log('No migrations to run')
+            if (d === 'down') {
+                await this.migrateDown()
             }
-
-            await db.destroy()
         } finally {
             this.#deleteDirectory()
+            process.exit(0)
         }
     }
 }

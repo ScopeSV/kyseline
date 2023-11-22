@@ -1,7 +1,7 @@
 import { ConfigParser } from '../config-file/ConfigParser'
-import { Migrator } from '../migrator/migrator'
+import { Direction, Migrator } from '../migrator/migrator'
 
-export const migrateMigrationsHandler = () => {
+export const migrateMigrationsHandler = (direction: Direction) => () => {
     const configParser = new ConfigParser()
     const cfg = configParser.getConfig()
     if (!cfg.migrationDir) {
@@ -13,5 +13,5 @@ export const migrateMigrationsHandler = () => {
         process.exit(1)
     }
     const migrator = new Migrator(cfg)
-    migrator.migrateUp()
+    migrator.migrate(direction)
 }

@@ -37,8 +37,13 @@ program
     .action(createMigrationHandler)
 
 program
-    .command('migration:migrate')
+    .command('migrate:up')
     .description('Migrates the database')
-    .action(migrateMigrationsHandler)
+    .action(migrateMigrationsHandler('up'))
+
+program
+    .command('migrate:down')
+    .description('Migrates the database')
+    .action(migrateMigrationsHandler('down'))
 
 program.parse()
