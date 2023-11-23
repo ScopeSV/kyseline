@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 import createMigrationHandler from './handlers/migrationHandler'
+import { migrateMigrationsHandler } from './handlers/migrateMigrationsHandler'
 
 const program = new Command()
 
@@ -34,5 +35,15 @@ program
     .description('Create a new migration file')
     .arguments('<migrationType> [otherArgs...]')
     .action(createMigrationHandler)
+
+program
+    .command('migrate:up')
+    .description('Migrates the database')
+    .action(migrateMigrationsHandler('up'))
+
+program
+    .command('migrate:down')
+    .description('Migrates the database')
+    .action(migrateMigrationsHandler('down'))
 
 program.parse()
