@@ -17,6 +17,16 @@ in the root of your project, add a config file `.kyselinecfg.json`
 {
     "migrationDir": path, // add path to your migrations directory
     "useJsExtension": bool // optional
+    // if you want to handle migrations and rollbacks for dev base through this cli
+    "dbCreds": {
+        "host": string
+        "port": number
+        "user": string
+        "password": string
+        "database": string
+        "ssl": boolean
+    }
+
 }
 ```
 
@@ -40,6 +50,26 @@ To remove fields from an existing table:
 
 ```bash
 $ npx kyseline migration:make remove_foo_from_footable foo
+```
+
+#### Run migrations and rollbacks
+
+Supported databases:
+
+-   PostgreSQL
+
+To run your migrations, make sure the `.kyselinecfg.json` has the `dbCreds` field filled out.
+
+Migrate up
+
+```bash
+$ npx kyseline migrate:up
+```
+
+Migrate down one step
+
+```bash
+$ npx kyseline migrate:down
 ```
 
 <!-- ## Deployment

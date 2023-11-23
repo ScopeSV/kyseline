@@ -117,7 +117,6 @@ export const generateTemplate = (
                 tableName,
                 options,
                 (columnName, columnType) => {
-                    console.log('ready to create a table')
                     b.indent(2).addColumn(columnName, columnType)
                 },
                 (columnName, columnType, opts?: string[]) => {
