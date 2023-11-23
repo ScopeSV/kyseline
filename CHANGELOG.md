@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/ScopeSV/kyseline/compare/v0.1.0...v0.2.0) (2023-11-23)
+
+
+### Features
+
+* support up and down migration for postgresql ([3239b60](https://github.com/ScopeSV/kyseline/commit/3239b6022845149696cbddc390b28fbd98ca549c))
+
 ## [0.1.0](https://github.com/ScopeSV/kyseline/compare/v0.0.2...v0.1.0) (2023-11-04)
 
 
