@@ -2,9 +2,9 @@
     "name": "kyseline",
     "version": "0.2.1",
     "description": "",
-    "main": "index.js",
+    "main": "dist/index.js",
     "bin": {
-        "kycli": "./dist/index.js"
+        "kyseline": "./dist/index.js"
     },
     "scripts": {
         "build-dev": "tsc && chmod +x ./dist/index.js && npm link",
