@@ -12,6 +12,6 @@ export const migrateMigrationsHandler = (direction: Direction) => () => {
         console.error('Database creds not found in config')
         process.exit(1)
     }
-    const migrator = new Migrator(cfg)
+    const migrator = new Migrator(cfg, configParser)
     migrator.migrate(direction)
 }

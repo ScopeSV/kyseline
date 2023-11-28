@@ -1,4 +1,4 @@
-import { Config } from '../config-file/ConfigParser'
+import { Config, ConfigParser } from '../config-file/ConfigParser'
 import ts from 'typescript'
 import {
     Kysely,
@@ -19,7 +19,10 @@ export class Migrator {
     #db: Kysely<any>
     #migrator: KyselyMigrator
 
-    constructor(public cfg: Config) {
+    constructor(
+        public cfg: Config,
+        public configParser: ConfigParser
+    ) {
         this.#db = this.#createDbConnector()
         this.#migrator = this.#createDbMigrator()
     }
@@ -32,13 +35,20 @@ export class Migrator {
         })
     }
 
+    #getMigrationDir = () => {
+        if (this.cfg.useJsExtension) {
+            return this.configParser.getMigrationDir()
+        }
+        return path.resolve('tempMigrations')
+    }
+
     #createDbMigrator = () => {
         return new KyselyMigrator({
             db: this.#db,
             provider: new FileMigrationProvider({
                 fs,
                 path,
-                migrationFolder: path.resolve('tempMigrations'),
+                migrationFolder: this.#getMigrationDir(),
             }),
         })
     }
@@ -58,6 +68,7 @@ export class Migrator {
         }
     }
     #deleteDirectory() {
+        if (!fileSys.existsSync(this.#tempFileDir)) return
         this.#deleteDirectoryContents()
         fileSys.rmdirSync(this.#tempFileDir)
     }
