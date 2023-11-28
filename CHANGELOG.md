@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/ScopeSV/kyseline/compare/v0.2.2...v0.2.3) (2023-11-28)
+
+
+### Bug Fixes
+
+* allow migrate js by using config ([9276464](https://github.com/ScopeSV/kyseline/commit/92764642e969f5e021fe405adbb51b9c81652c77))
+
 ## [0.2.2](https://github.com/ScopeSV/kyseline/compare/v0.2.1...v0.2.2) (2023-11-28)
 
 
