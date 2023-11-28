@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/ScopeSV/kyseline/compare/v0.2.0...v0.2.1) (2023-11-28)
+
+
+### Bug Fixes
+
+* install correctly ([5b9e183](https://github.com/ScopeSV/kyseline/commit/5b9e1838aacabe4587d862dbc6e44eea0c555e17))
+
 ## [0.2.0](https://github.com/ScopeSV/kyseline/compare/v0.1.0...v0.2.0) (2023-11-23)
 
 
