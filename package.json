@@ -19,11 +19,11 @@
         "commander": "^11.1.0",
         "pg": "^8.11.3",
         "ts-node-dev": "^2.0.0",
-        "typescript": "^5.2.2"
+        "typescript": "^5.2.2",
+        "kysely": "^0.26.3"
     },
     "devDependencies": {
         "@types/pg": "^8.10.9",
-        "kysely": "^0.26.3",
         "prettier": "^3.0.3",
         "ts-node": "^10.9.1",
         "vitest": "^0.34.6"
